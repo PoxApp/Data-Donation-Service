@@ -1,0 +1,18 @@
+version: '3.4'
+
+services:
+  db:
+    image: 'postgres:13'
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=dbuser
+      - POSTGRES_DB=donation
+    ports:
+      - 5432:5432
+#   interface:
+#     image: dpage/pgadmin4
+#     environment:
+#       - PGADMIN_DEFAULT_EMAIL=admin@test.com
+#       - PGADMIN_DEFAULT_PASSWORD=admin
+#     ports:
+#       - 80:80
