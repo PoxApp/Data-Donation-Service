@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DataDonation.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -11,8 +11,8 @@ namespace DataDonation.Migrations
                 name: "DataDonationEntries",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    date = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    Id = table.Column<byte[]>(type: "varbinary(16)", nullable: false),
+                    date = table.Column<DateTime>(type: "datetime", nullable: false),
                     data = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>

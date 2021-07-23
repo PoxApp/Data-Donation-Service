@@ -5,33 +5,31 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace DataDonation.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20210629000238_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20210723185816_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("Relational:MaxIdentifierLength", 63)
-                .HasAnnotation("ProductVersion", "5.0.7")
-                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                .HasAnnotation("Relational:MaxIdentifierLength", 64)
+                .HasAnnotation("ProductVersion", "5.0.7");
 
             modelBuilder.Entity("DataDonation.Models.DataDonationEntry", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<byte[]>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("varbinary(16)");
 
                     b.Property<string>("data")
                         .HasColumnType("text");
 
                     b.Property<DateTime>("date")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("datetime");
 
                     b.HasKey("Id");
 
