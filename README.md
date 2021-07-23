@@ -1,7 +1,6 @@
 # DataDonation
+
 The Data Donation Service for the CovApp
-
-
 
 # Production
 
@@ -11,17 +10,15 @@ Change the [appsettings.json](./appsettings.json) accordingly. (e.g. The Databas
 
 ```
 dotnet restore
-dotnet publish -c Release -o /app
-dotnet DataDonation.dll
+dotnet publish -c Release -o ./app
+dotnet ./app/DataDonation.dll
 ```
 
-
-
-# Development 
+# Development
 
 [Install .NET Core SDK or Runtime](https://dotnet.microsoft.com/download/dotnet/5.0)
 
-Run `docker-compose up -d` before to start the local database. 
+Run `docker-compose up -d` before to start the local database.
 
 ```
 dotnet restore
