@@ -11,6 +11,7 @@ Change the [appsettings.json](./appsettings.json) accordingly. (e.g. The Databas
 ```
 dotnet restore
 dotnet publish -c Release -o ./app
+# Edit the appsettings.json file in ./app/appsettings.json and change the connection string
 dotnet ./app/DataDonation.dll
 ```
 
