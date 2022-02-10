@@ -16,7 +16,7 @@ The Data Donation Service for the CovApp
 
 Change the [appsettings.json](./appsettings.json) accordingly. (e.g. The Database Connection String)
 
-```
+```bash
 # Add user to mysql: https://www.digitalocean.com/community/tutorials/how-to-create-a-new-user-and-grant-permissions-in-mysql
 mysql 
   CREATE USER 'datadonation'@'localhost' IDENTIFIED BY 'YourPassword123';
@@ -35,7 +35,7 @@ dotnet ./app/DataDonation.dll
 ```
 
 Add it to your reverse proxy, e.g. Nginx: 
-```
+```bash
   location / {
     proxy_pass http://127.0.0.1:8000;
   }
@@ -43,7 +43,7 @@ Add it to your reverse proxy, e.g. Nginx:
 
 
 Add it as system service: 
-```
+```bash
 cat > /etc/system/sytemd/data-donation.service <<EOF
 [Unit]
 Description=Data Donation
