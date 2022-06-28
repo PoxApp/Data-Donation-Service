@@ -1,6 +1,6 @@
 # DataDonation
 
-The Data Donation Service for the CovApp
+The Data Donation Service for the PoxApp
 
 # Production
 
