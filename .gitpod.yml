@@ -33,6 +33,7 @@ vscode:
     - esbenp.prettier-vscode
     - k--kato.docomment
     - muhammad-sammy.csharp
+    - humao.rest-client
 
 github:
   prebuilds:
