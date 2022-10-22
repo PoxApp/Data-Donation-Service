@@ -9,6 +9,10 @@ on:
   pull_request:
     branches: [ "main" ]
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+  
 jobs:
   build:
 
@@ -34,8 +38,8 @@ jobs:
         cd ..
         mkdir out
         cd out
-        cp decrypt-tool\bin\Release\net6.0\linux-x64\publish\decrypt-tool decrypt-tool
-        cp decrypt-tool\bin\Release\net6.0\win-x64\publish\decrypt-tool.exe decrypt-tool.exe
+        cp decrypt-tool/bin/Release/net6.0/linux-x64/publish/decrypt-tool decrypt-tool
+        cp decrypt-tool/bin/Release/net6.0/win-x64/publish/decrypt-tool.exe decrypt-tool.exe
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v3.1.1
       with:
