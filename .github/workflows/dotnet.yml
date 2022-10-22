@@ -26,3 +26,21 @@ jobs:
       run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
+    - name: Build Executables
+      run: |
+        cd decrypt-tool
+        dotnet publish --runtime win-x64 --configuration Release -p:PublishSingleFile=true -p:PublishTrimmed=true --self-contained true
+        dotnet publish --runtime linux-x64 --configuration Release -p:PublishSingleFile=true -p:PublishTrimmed=true --self-contained true
+        cd ..
+        mkdir out
+        cd out
+        cp decrypt-tool\bin\Release\net6.0\linux-x64\publish\decrypt-tool decrypt-tool
+        cp decrypt-tool\bin\Release\net6.0\win-x64\publish\decrypt-tool.exe decrypt-tool.exe
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v3.1.1
+      with:
+        # Artifact name
+        name: executables
+        # A file, directory or wildcard pattern that describes what to upload
+        path: out
+        if-no-files-found: error
