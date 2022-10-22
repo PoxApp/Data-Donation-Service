@@ -37,9 +37,8 @@ jobs:
         dotnet publish --runtime linux-x64 --configuration Release -p:PublishSingleFile=true -p:PublishTrimmed=true --self-contained true
         cd ..
         mkdir out
-        cd out
-        cp decrypt-tool/bin/Release/net6.0/linux-x64/publish/decrypt-tool decrypt-tool
-        cp decrypt-tool/bin/Release/net6.0/win-x64/publish/decrypt-tool.exe decrypt-tool.exe
+        cp decrypt-tool/bin/Release/net6.0/linux-x64/publish/decrypt-tool out/decrypt-tool
+        cp decrypt-tool/bin/Release/net6.0/win-x64/publish/decrypt-tool.exe out/decrypt-tool.exe
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v3.1.1
       with:
