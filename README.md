@@ -1,85 +1,35 @@
 # DataDonation
 
-The Data Donation Service for the [QuestionnaireApp](https://github.com/OSPRS/QuestionnaireApp)
+The Data Donation Service and accompanying tooling for the [QuestionnaireApp](https://github.com/OSPRS/QuestionnaireApp). 
 
-# Production
-
-## Preparation
-
-1. [Install .NET Core SDK or Runtime](https://dotnet.microsoft.com/download/dotnet/5.0)
-2. Install MySQL `apt-get install mysql`
+For information how to install and use the software have a look at subdirectories for [api](api/README.md) and [decrypt-tool](decrypt-tool/README.md).  
 
 
-## Installation
+## Development
 
+Make sure to run `docker-compose up` before continuing with any other README. 
 
+## How to use? 
 
-Change the [appsettings.json](./appsettings.json) accordingly. (e.g. The Database Connection String)
+To use the encryption feature you will have to supply a public key to the [QuestionnaireApp](https://github.com/OSPRS/QuestionnaireApp) and keep the private key secure on your machine. 
+
+The UseCase would be as following: 
+
+1. Generate a key pair in a secure environment, e.g.: `openssl genrsa -des3 -out private.pem 2048`
+2. Export the Public and Private Key for use with the `decrypt-tool`: 
 
 ```bash
-# Add user to mysql: https://www.digitalocean.com/community/tutorials/how-to-create-a-new-user-and-grant-permissions-in-mysql
-mysql 
-  CREATE USER 'datadonation'@'localhost' IDENTIFIED BY 'YourPassword123';
-  GRANT ALL PRIVILEGES ON * . * TO 'newuser'@'localhost';
-  FLUSH PRIVILEGES;
-    
-# Install this service
-git clone https://github.com/CovOpen/DataDonation.git
-cd ./DataDonation
-dotnet restore
-dotnet publish -c Release -o ./app
-# Edit the appsettings.json file in ./app/appsettings.json and change the connection string to the just created user and database. 
-nano ./app/appsettings.json
-# Test the startup
-dotnet ./app/DataDonation.dll
+# Export Public Key
+openssl rsa -in private.pem -outform PEM -pubout -out public_key.pem
+# Export Private Key 
+openssl pkcs8 -topk8 -inform PEM -outform PEM -nocrypt -in private.pem -out private_key.pem
+# Place them in the 'keys' Folder next to the 'decrypt-tool'
+# Run the decrypt-tool
+decrypt-tool 
+✔ Supply Connection String: server=localhost;database=datadonation;user=root;password=example;OldGuids=true
+Checking Connection... Successful.
+✔ Supply Private Key Path: keys
+Error on entry '4965680f-bf48-4e54-97a3-4a686fc8ccce': Data could not be encrypted. (Data might already be in cleartext: Missing 'encyptedKey' Property etc.)
+Export with 1 Entries created. See 'cleartext_data.csv'
+# 
 ```
-
-Add it to your reverse proxy, e.g. Nginx: 
-```bash
-  location / {
-    proxy_pass http://127.0.0.1:8000;
-  }
-```
-
-
-Add it as system service: 
-```bash
-cat > /etc/system/sytemd/data-donation.service <<EOF
-[Unit]
-Description=Data Donation
-# Starts this service as soon as it is connected with the internet
-After=network.target auditd.service
-
-[Service]
-ExecStart=/usr/bin/dotnet /home/path/to/DataDonation/app/DataDonation.dll
-KillMode=process
-Restart=on-failure
-RestartPreventExitStatus=255
-WorkingDirectory=/home/path/to/DataDonation/app
-
-[Install]
-WantedBy=multi-user.target
-EOF
-
-# Enable the service to restart
-systemctl daemon-reload
-systemctl enable data-donation.service
-systemctl start data-donation.service
-systemctl status data-donation.service
-
-# Does not run? Find the whole error message with:
-journalctl -u data-donation.service
-```
-
-
-# Development
-
-[Install .NET Core SDK or Runtime](https://dotnet.microsoft.com/download/dotnet/5.0)
-
-Run `docker-compose up -d` before to start the local database.
-
-```
-dotnet restore
-dotnet watch run
-```
-
