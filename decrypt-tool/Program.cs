@@ -20,7 +20,7 @@ namespace DecryptTool
         static string keysPublicFileName = "public_key.pem";
         static string outputFile = "cleartext_data.csv";
 
-        [Verb("descrypt", true, HelpText = "Generate Keys for encryption/decryption.")]
+        [Verb("decrypt", true, HelpText = "Decrypt Data from Database.")]
         public class Options
         {
             [Option('v', "verbose", Required = false, HelpText = "Set output to verbose messages.")]
