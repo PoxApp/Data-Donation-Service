@@ -122,7 +122,7 @@ namespace DecryptTool
                 csv.WriteRecords(records);
             }
 
-            Console.WriteLine($"Export created. See '{outputFile}'");
+            Console.WriteLine($"Export with {records.Count()} Entries created. See '{outputFile}'");
             return 0;
         }
 
@@ -215,7 +215,7 @@ namespace DecryptTool
             }
             else
             {
-                throw new Exception("Data could not be encrypted. (Missing encyptedKey etc.");
+                throw new Exception("Data could not be encrypted. (Data might already be in cleartext: Missing 'encyptedKey' Property etc.)");
             }
         }
 
