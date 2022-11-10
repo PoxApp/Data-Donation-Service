@@ -38,10 +38,12 @@ git clone https://github.com/CovOpen/DataDonation.git
 cd ./DataDonation
 dotnet restore
 dotnet publish -c Release -o ./app
-# Edit the appsettings.json file in ./app/appsettings.json and change the connection string to the just created user and database. 
-nano ./app/appsettings.json
+# Edit the appsettings.json file in ./appsettings.json and change the connection string to the just created user and database. 
+nano ./appsettings.json
 # Test the startup
-dotnet ./app/DataDonation.dll
+dotnet ./app/API.dll
+# Build again to update the appsettings.json in the Build folder
+dotnet publish -c Release -o ./app
 ```
 
 Add it to your reverse proxy, e.g. Nginx: 
