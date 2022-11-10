@@ -56,7 +56,7 @@ Add it to your reverse proxy, e.g. Nginx:
 
 Add it as system service: 
 ```bash
-cat > /etc/system/sytemd/data-donation.service <<EOF
+cat > /etc/systemd/system/data-donation.service <<EOF
 [Unit]
 Description=Data Donation
 # Starts this service as soon as it is connected with the internet
