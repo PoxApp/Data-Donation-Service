@@ -21,10 +21,12 @@ To use the encryption feature you will have to supply a public key to the [Quest
 
 The UseCase would be as following: 
 
-1. Generate a key pair in a secure environment, e.g.: `openssl genrsa -des3 -out private.pem 2048`
+1. Generate a key pair in a secure environment, e.g.: `openssl genrsa -des3 -out private.pem 4096`
 2. Export the Public and Private Key for use with the `decrypt-tool`: 
 
 ```bash
+# Generate key
+openssl genrsa -des3 -out private.pem 4096
 # Export Public Key
 openssl rsa -in private.pem -outform PEM -pubout -out public_key.pem
 # Export Private Key 
