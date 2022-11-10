@@ -47,7 +47,7 @@ jobs:
         dotnet publish --runtime win-x64 --configuration Release -p:PublishSingleFile=true -p:PublishTrimmed=true --self-contained true
         dotnet publish --runtime linux-x64 --configuration Release -p:PublishSingleFile=true -p:PublishTrimmed=true --self-contained true
         cd ..
-        cp -r api/bin/Release/net6.0/publish/* out/api/
+        cp -r api/bin/Release/net6.0/* out/api/
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v3.1.1
       with:
