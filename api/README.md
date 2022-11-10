@@ -30,7 +30,7 @@ Change the [appsettings.json](./appsettings.json) accordingly. (e.g. The Databas
 # Add user to mysql: https://www.digitalocean.com/community/tutorials/how-to-create-a-new-user-and-grant-permissions-in-mysql
 mysql 
   CREATE USER 'datadonation'@'localhost' IDENTIFIED BY 'YourPassword123';
-  GRANT ALL PRIVILEGES ON * . * TO 'newuser'@'localhost';
+  GRANT ALL PRIVILEGES ON * . * TO 'datadonation'@'localhost';
   FLUSH PRIVILEGES;
     
 # Install this service
