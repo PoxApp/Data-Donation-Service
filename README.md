@@ -9,6 +9,12 @@ For information how to install and use the software have a look at subdirectorie
 
 Make sure to run `docker-compose up` before continuing with any other README. 
 
+```bash
+# Install Dotnet
+curl -fsSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --channel LTS
+source ~/.bashrc
+```
+
 ## How to use? 
 
 To use the encryption feature you will have to supply a public key to the [QuestionnaireApp](https://github.com/OSPRS/QuestionnaireApp) and keep the private key secure on your machine. 

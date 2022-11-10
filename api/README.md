@@ -16,8 +16,8 @@ dotnet watch run
 
 ### Preparation
 
-1. [Install .NET Core SDK or Runtime](https://dotnet.microsoft.com/download/dotnet/5.0)
-2. Install MySQL `apt-get install mysql`
+1. [Install .NET Core SDK or Runtime](https://dotnet.microsoft.com/download/dotnet/6.0): `curl -fsSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --channel LTS`
+2. Install MySQL: `apt-get install mysql`
 
 
 ### Installation
