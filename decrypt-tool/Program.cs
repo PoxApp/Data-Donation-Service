@@ -26,13 +26,8 @@ namespace DecryptTool
             [Option('v', "verbose", Required = false, HelpText = "Set output to verbose messages.")]
             public bool Verbose { get; set; }
 
-            [Option("connectionString", Required = false, HelpText = "Connection String to encrypted Database.")]
-            public string? ConnectionString
-            {
-                get; set;
-            }
 
-            [Option("privateKey", Required = false, HelpText = "Private key for encrypted Data.")]
+            [Option("privateKeyFolder", Required = false, HelpText = "FolderPrivate key for encrypted Data.")]
             public string? PrivateKey
             {
                 get; set;
@@ -58,10 +53,10 @@ namespace DecryptTool
 
         public static async Task<int> DecryptData(Options opts)
         {
-            string? connectionString = opts.ConnectionString;
+            string? connectionString = Environment.GetEnvironmentVariable("DECRYPT_TOOL_CONNECTION_STRING");
             if (connectionString == null)
             {
-                connectionString = Prompt.Input<string>("Supply Connection String", "server=localhost;database=datadonation;user=root;password=example;OldGuids=true");
+                connectionString = Prompt.Password("Supply Connection String", "server=localhost;database=datadonation;user=root;password=example;OldGuids=true");
             }
 
             Console.Write("Checking Connection... ");
