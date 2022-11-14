@@ -19,8 +19,9 @@ The Keys have to be in PKCS8 Format in order to work.
 ### Executables
 
 1. Go to the last build and download the executables. 
-2. Run `decrypt-tool` or `decrypt-tool.exe` on from commandline, on you respective platform.
-3. Follow the instructions.
+3. Set Environment Variable `DECRYPT_TOOL_CONNECTION_STRING`.
+3. Run `decrypt-tool` or `decrypt-tool.exe` on from commandline, on you respective platform.
+4. Follow the instructions.
 
 ### From source
 
