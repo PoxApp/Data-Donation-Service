@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Serilog;
 
 namespace API
 {
@@ -27,7 +28,10 @@ namespace API
                 Configuration.GetConnectionString("DefaultConnection");
             // Serilog.Log.Information(connectionString);
             var serverVersion = new MySqlServerVersion(new Version(8, 0, 29));
-
+            if (!connectionString.Contains("OldGuids"))
+            {
+                Log.Warning("Connection String does not contain 'OldGuids', add ';OldGuids=true'!");
+            }
 
             try
             {
