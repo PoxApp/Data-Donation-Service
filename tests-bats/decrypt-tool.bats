@@ -14,8 +14,8 @@ setup() {
 # Setup Database
     cd ..
     docker compose up -d
-    until [ "`docker inspect -f {{.State.Health.Status}} datadonation_db_1`" == "healthy" ]; do
-        docker inspect -f {{.State.Health.Status}} datadonation_db_1
+    until [ "`docker inspect -f {{.State.Health.Status}} datadonation-db-1`" == "healthy" ]; do
+        docker inspect -f {{.State.Health.Status}} datadonation-db-1
         sleep 1;
     done;
     echo "Ready!"
