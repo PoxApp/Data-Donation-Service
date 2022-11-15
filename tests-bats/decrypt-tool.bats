@@ -13,7 +13,7 @@ setup() {
 
 # Setup Database
     cd ..
-    docker compose up -d --compatibility
+    docker compose up -d
     until [ "`docker inspect -f {{.State.Health.Status}} datadonation_db_1`" == "healthy" ]; do
         docker inspect -f {{.State.Health.Status}} datadonation_db_1
         sleep 1;
