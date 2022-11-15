@@ -13,17 +13,17 @@ setup() {
 
 # Setup Database
     cd ..
-    docker-compose up -d
-    until [ "`docker inspect -f {{.State.Health.Status}} datadonation-db-1`" == "healthy" ]; do
-        docker inspect -f {{.State.Health.Status}} datadonation-db-1
+    docker compose up -d --compatibility
+    until [ "`docker inspect -f {{.State.Health.Status}} datadonation_db_1`" == "healthy" ]; do
+        docker inspect -f {{.State.Health.Status}} datadonation_db_1
         sleep 1;
     done;
     echo "Ready!"
     sleep 1
-    docker-compose exec -T db mysql -uroot -pexample <<EOF
+    docker compose exec -T db mysql -uroot -pexample <<EOF
 CREATE DATABASE datadonation;
 USE datadonation;
-$(cat backup.sql)
+$(cat ./tests-bats/backup.sql)
 EOF
     cd tests-bats
 }
