@@ -446,3 +446,14 @@ $RECYCLE.BIN/
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+# Decrypt-Tool Specific
+keys/
+*.pem
+*.csv
+!tests-bats/example.pem
+
+# Bats test
+tests-bats/decrypted/
+tests-bats/demo/
+tests-bats/decrypt-tool

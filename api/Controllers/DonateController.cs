@@ -1,12 +1,16 @@
-﻿using DataDonation.Database;
-using DataDonation.Models;
+﻿using DB.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Text.Json;
 using System.Threading.Tasks;
+using System.Security.Cryptography;
+using System.IO;
+using System.Linq;
+using System.Text;
+using DB;
 
-namespace DataDonation.Controllers
+namespace API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
@@ -26,6 +30,7 @@ namespace DataDonation.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
+        // [RequestSizeLimit(100_000_000)]
         public async Task<ActionResult> Submit(JsonElement data)
         {
             // TODO: Add validation

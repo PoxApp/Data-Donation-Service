@@ -1,0 +1,80 @@
+# This workflow will build a .NET project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
+
+name: .NET
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 6.0.x
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --no-restore
+    - name: Test
+      run: dotnet test --no-build --verbosity normal
+    - name: Test-Bats
+      run: | 
+        cd tests-bats
+        npx bats decrypt-tool.bats --filter '[^generategif]'
+    - name: Make Artifact Folders
+      run: |
+        mkdir out
+        mkdir out/decrypt-tool
+        mkdir out/api
+    - name: Build Decrypt-Tool
+      run: |
+        cd decrypt-tool
+        dotnet publish --runtime win-x64 --configuration Release -p:PublishSingleFile=true -p:PublishTrimmed=true --self-contained true
+        dotnet publish --runtime linux-x64 --configuration Release -p:PublishSingleFile=true -p:PublishTrimmed=true --self-contained true
+        cd ..
+        cp decrypt-tool/bin/Release/net6.0/linux-x64/publish/decrypt-tool out/decrypt-tool/decrypt-tool
+        cp decrypt-tool/bin/Release/net6.0/win-x64/publish/decrypt-tool.exe out/decrypt-tool/decrypt-tool.exe
+    - name: Build API
+      run: |
+        cd api
+        dotnet publish --runtime win-x64 --configuration Release -p:PublishSingleFile=true -p:PublishTrimmed=true --self-contained true
+        dotnet publish --runtime linux-x64 --configuration Release -p:PublishSingleFile=true -p:PublishTrimmed=true --self-contained true
+        cd ..
+        cp -r api/bin/Release/net6.0/* out/api/
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v3.1.1
+      with:
+        # Artifact name
+        name: api
+        # A file, directory or wildcard pattern that describes what to upload
+        path: out/api
+        if-no-files-found: error
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v3.1.1
+      with:
+        # Artifact name
+        name: decrypt-tool
+        # A file, directory or wildcard pattern that describes what to upload
+        path: out/decrypt-tool
+        if-no-files-found: error
+
+    - uses: "marvinpinto/action-automatic-releases@latest"
+      if: github.ref == 'refs/heads/main'
+      with:
+        repo_token: "${{ secrets.GITHUB_TOKEN }}"
+        automatic_release_tag: "latest"
+        prerelease: false
+        title: "Latest Release"
+        files: |
+          out/decrypt-tool/*
