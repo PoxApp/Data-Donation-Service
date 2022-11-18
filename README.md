@@ -1,6 +1,6 @@
 # DataDonation
 
-The Data Donation Service and accompanying tooling for the [QuestionnaireApp](https://github.com/OSPRS/QuestionnaireApp). 
+The Data Donation Service for the PoxApp
 
 For information how to install and use the software have a look at subdirectories for [api](api/README.md) and [decrypt-tool](decrypt-tool/README.md).  
 
